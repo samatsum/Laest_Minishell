@@ -1,0 +1,162 @@
+export AAA="  hoge "
+$AAA
+minishell: hoge: command not found
+echo $AAA
+hoge
+echo $AAA | cat -e
+hoge$
+echo "$AAA" | cat -e
+  hoge $
+echo "$AAA"$AAA | cat -e
+  hoge  hoge$
+echo "$AAA$AAA" | cat -e
+  hoge   hoge $
+
+torinoue@c4r1s3:~$ echo $AAA$AAA | cat -e
+hoge hoge$
+torinoue@c4r1s3:~$ echo $?
+0
+
+torinoue@c4r1s3:~$ echo $AAA $AAA | cat -e
+hoge hoge$
+
+torinoue@c4r1s3:~$ echo $AAA  $AAA | cat -e
+hoge hoge$
+torinoue@c4r1s3:~$ echo $?
+0
+
+torinoue@c4r1s3:~$ echo "$AAA $AAA" | cat -e
+  hoge    hoge $
+
+torinoue@c4r1s3:~$ echo "$AAA  $AAA" | cat -e
+  hoge     hoge $
+
+torinoue@c4r1s3:~$ echo "$AAA   $AAA" | cat -e
+  hoge      hoge $
+  hoge      hoge $
+
+torinoue@c4r1s3:~$ echo '$AAA   $AAA' | cat -e
+$AAA   $AAA$
+
+
+export AAA="Hello          " 
+export BBB=$AAA$AAA
+echo $BBB |cat -e
+Hello Hello$
+
+
+export BBB=$AAA" World"
+
+
+
+export IFS=" "
+export VAR="output.txt   02output.txt"
+echo $VAR
+output.txt 02output.txt
+cat $VAR
+THIS FILE IS OUTPUT_TXT
+THIS FILE IS 02OUTPUT_TXT
+
+export VAR="output.txt "02output.txt
+echo $VAR
+output.txt 02output.txt
+cat $VAR
+THIS FILE IS OUTPUT_TXT
+THIS FILE IS 02OUTPUT_TXT
+
+export IFS=":"
+export VAR="output.txt:::02output.txt"
+echo $VAR
+cat $VAR
+
+
+export IFS=":"
+export VAR="output.txt:::02output.txt"
+echo $VAR
+output.txt   02output.txt
+cat $VAR
+THIS FILE IS OUTPUT_TXT
+cat: '': No such file or directory
+cat: '': No such file or directory
+THIS FILE IS 02OUTPUT_TXT
+
+export VAR="output.txt:02output.txt"
+
+export VAR="output.txt::02output.txt"
+
+https://github.com/Dsite42/minishell/blob/master/minishell_evalsheet.pdf
+
+hogeecho -n HOGE
+HOGE
+
+exit
+
+
+ % bash
+bash
+exit 42
+exit
+exit
+exit
+torinoue@c4r1s3 ~/Downloads/Norm_OK_minishell/minishell
+ % echo $?
+42
+
+
+ % bash
+torinoue@c4r1s3:~/Downloads/Norm_OK_minishell/minishell$ exit a
+exit
+bash: exit: a: numeric argument required
+
+
+
+
+
+
+
+Execute exit command with or without arguments.
+という
+minishellの課題のレビュー項目について試してみました。
+------bashでは---
+```
+bash -i 2> /dev/null
+ls
+bash
+bash
+exit
+exit
+```
+を実行すると下記のような出力になりました。
+```
+torinoue@c4r1s3 ~/Downloads/Norm_OK_minishell/minishell
+ % bash -i 2> /dev/null
+02output.txt   include	Makefile   MINISHELL_EXIT_LOG  object_files  src
+BASH_EXIT_LOG  libft	minishell  minishell_tester    output.txt    test_files
+exit
+torinoue@c4r1s3 ~/Downloads/Norm_OK_minishell/minishell
+ % 
+```
+
+一方、minishellでは
+```
+torinoue@c4r1s3 ~/Downloads/Norm_OK_minishell/minishell
+./minishell 2> /dev/null
+ls
+./minishell
+exit
+exit
+```
+を実行すると
+```
+torinoue@c4r1s3 ~/Downloads/Norm_OK_minishell/minishell
+ % ./minishell 2> /dev/null
+minishell$ ls
+02output.txt   include	Makefile   MINISHELL_EXIT_LOG  object_files  src
+BASH_EXIT_LOG  libft	minishell  minishell_tester    output.txt    test_files
+minishell$ ./minishell
+minishell$ exit
+minishell$ exit
+torinoue@c4r1s3 ~/Downloads/Norm_OK_minishell/minishell
+```
+となりました。
+なぜこのような違いが出るか、またminishellでの出力をbashと同じにする方法はありますか？
