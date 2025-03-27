@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 23:21:21 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 20:54:37 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/27 21:19:50 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ void	expand_variable_str(char **dst, char **rest, char *p, t_context *ctx)
 		while (*value)
 			append_char(dst, *value++);
 	else
+	{
+		free(*dst);
 		*dst = NULL;
+	}
 	*rest = p;
 }
 

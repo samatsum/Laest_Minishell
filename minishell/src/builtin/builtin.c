@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:25:41 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 21:00:21 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:51:11 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		exec_builtin(t_node *node, t_context *ctx);
 bool	is_builtin(t_node *node);
 
 /* ************************************************************************** */
-int	exec_builtin(t_node *node, t_context *ctx)
+int	exec_builtin(t_node *node, t_context *ctx)// noreturn()でもいいんじゃや？
 {
 	int		status;
 	char	**argv;

@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 21:43:23 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 20:53:24 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:04:59 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 void		expand_word_splitting(t_node *node, t_context *ctx);
 static void	expand_word_splitting_tok(t_token *tok, t_context *ctx);
 static void	word_split(t_token *tok, t_context *ctx);
+static void	process_char(char **new_word, char **p, t_token **tok, \
+	t_context *ctx);
 static void	insert_new_tok(char **new_word, t_token **rest, t_token *tok);
 /*
    Word Splitting
@@ -74,35 +76,41 @@ static void	word_split(t_token *tok, t_context *ctx)
 {
 	char	*new_word;
 	char	*p;
+	char	*word_copy;
 
+	if (!tok->word)
+		return ;
+	word_copy = xstrdup(tok->word);
 	if (tok->export_flag != 2)
-		trim_ifs(&p, tok->word, ctx);
+		trim_ifs(&p, word_copy, ctx);
 	else
-		p = tok->word;
+		p = word_copy;
 	new_word = xcalloc(1, sizeof(char));
-	while (*p)
-	{
-		if (*p == SINGLE_QUOTE_CHAR)
-			append_single_quote(&new_word, &p, p);
-		else if (*p == DOUBLE_QUOTE_CHAR)
-			append_double_quote(&new_word, &p, p, ctx);
-		else if (tok->export_flag != 2 && consume_ifs(&p, p, ctx) && *p)
-			insert_new_tok(&new_word, &tok, tok);
-		else
-			append_char(&new_word, *p++);
-	}
+	while (p && *p)
+		process_char(&new_word, &p, &tok, ctx);
 	free(tok->word);
-	tok->word = NULL;
 	tok->word = new_word;
+	free(word_copy);
 }
 
-/* ************************************************************************** */
+static void	process_char(char **new_word, char **p, t_token **tok, \
+	t_context *ctx)
+{
+	if (**p == SINGLE_QUOTE_CHAR)
+		append_single_quote(new_word, p, *p);
+	else if (**p == DOUBLE_QUOTE_CHAR)
+		append_double_quote(new_word, p, *p, ctx);
+	else if ((*tok)->export_flag != 2 && consume_ifs(p, *p, ctx) && *p && **p)
+		insert_new_tok(new_word, tok, *tok);
+	else if (*p && **p)
+		append_char(new_word, *(*p)++);
+}
+
 static void	insert_new_tok(char **new_word, t_token **rest, t_token *tok)
 {
 	t_token	*new_tok;
 
 	free(tok->word);
-	tok->word = NULL;
 	tok->word = *new_word;
 	*new_word = xcalloc(1, sizeof(char));
 	new_tok = new_token(NULL, TOKEN_WORD);

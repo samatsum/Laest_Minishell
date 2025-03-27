@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 16:35:11 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 20:57:14 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:05:22 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ PARAMETERS
 
 	   A variable may be assigned to by a statement of the form
 
-              name=[value]
+			  name=[value]
 
 	   If value is not given, the variable is assigned the null string.  All
 	   values undergo tilde expansion, parameter and variable expansion,

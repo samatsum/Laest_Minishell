@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 18:31:57 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 15:36:54 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:35:10 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	parse_error(const char *location, t_token **rest, t_token *tok, \
 /* ************************************************************************** */
 static void	print_syntax_error(const char *location, t_token *tok)
 {
-	write(2, "BBBB&&BBB\n", 11);
 	if (tok->kind == TOKEN_PIPE)
 		ft_dprintf(STDERR_FILENO,
 			"syntax error near unexpected token `|' in %s\n", location);
@@ -87,7 +86,6 @@ static void	print_syntax_error(const char *location, t_token *tok)
 		ft_dprintf(STDERR_FILENO,
 			"syntax error near unexpected token `%s' \
 				in %s\n", tok->word, location);
-	write(2, "BBBB&&BBB\n", 11);
 }
 
 /* ************************************************************************** */

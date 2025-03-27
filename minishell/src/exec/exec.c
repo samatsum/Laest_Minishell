@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 21:00:29 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 00:51:12 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ static pid_t	exec_pipeline(t_node *node, t_context *ctx)
 	}
 	prepare_pipe_parent(node);
 	if (node->next)
+	{
+		
 		return (exec_pipeline(node->next, ctx));
+	}
 	return (pid);
 }
 
