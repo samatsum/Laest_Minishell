@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:25:45 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 00:25:30 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:32:00 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	prepare_pipe_child(t_node *node)
 	}
 	if (node->next)
 	{
+		xclose(node->inter_process_pipe[0]);
 		xdup2(node->inter_process_pipe[1], STDOUT_FILENO);
 		if (node->inter_process_pipe[1] != STDOUT_FILENO)
 			xclose(node->inter_process_pipe[1]);
