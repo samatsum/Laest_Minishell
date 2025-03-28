@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 19:30:55 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 22:00:59 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static pid_t	exec_pipeline(t_node *node, t_context *ctx)
 			exec_nonbuiltin(node, ctx);
 	}
 	prepare_pipe_parent(node);
+	reset_signal();
 	if (node->next)
 		return (exec_pipeline(node->next, ctx));
 	return (pid);
@@ -103,7 +104,7 @@ static void	validate_access(const char *path, const char *filename_token, \
 	if (path == NULL)
 	{
 		if (tmp != NULL)
-			err_exit(filename_token, "01command not found", 127);
+			err_exit(filename_token, "command not found", 127);
 		else
 			exit(0);
 	}	

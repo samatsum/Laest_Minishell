@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 18:21:12 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 19:41:24 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 21:56:43 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,9 @@ int	read_heredoc(const char *delimiter_token, bool is_delim_unquoted, \
 	int		pfd[2];
 
 	xpipe(pfd);
-	ctx->readline_interrupted = false;
 	readline_heredoc_loop(pfd, delimiter_token, is_delim_unquoted, ctx);
 	xclose(pfd[1]);
-	if (ctx->readline_interrupted)
+	if (g_signal_received == SIGINT)
 	{
 		xclose(pfd[0]);
 		return (-1);

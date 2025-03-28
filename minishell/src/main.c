@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 21:21:33 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 21:18:18 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 21:56:03 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	main(void)
 	ctx.last_status = 0;
 	while (1)
 	{
+		g_signal_received = 0;
 		line = readline("minishell$ ");
 		if (line == NULL)
 			break ;
