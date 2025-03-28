@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 21:21:33 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 20:59:57 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 21:02:15 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,14 @@ int	main(void)
 	{
 		line = readline("minishell$ ");
 		if (line == NULL)
+		{
+			if (g_signal_received == SIGINT)
+			{
+				g_signal_received = 0;
+				continue ;
+			}
 			break ;
+		}
 		if (*line)
 			add_history(line);
 		interpret(line, &ctx);

@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 10:02:14 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 19:30:55 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	validate_access(const char *path, const char *filename_token, \
 	if (path == NULL)
 	{
 		if (tmp != NULL)
-			err_exit(filename_token, "command not found", 127);
+			err_exit(filename_token, "01command not found", 127);
 		else
 			exit(0);
 	}	
