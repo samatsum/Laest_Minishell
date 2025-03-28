@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 14:11:33 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 15:22:37 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:43:27 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ t_token	*tokenize(char *line, t_context *ctx)
 			tok->next = word(&line, line, ctx);
 		tok = tok->next;
 	}
-	if ((&head)->next && (&head)->next->kind != TOKEN_WORD)
+	if ((&head)->next && (&head)->next->kind != TOKEN_WORD \
+			&& (&head)->next->kind != TOKEN_REDIR_HEREDOC)
 		tokenize_error("Unexpected Token", &line, (&head)->next, ctx);
 	else if (tok->kind != TOKEN_WORD)
 		tokenize_error("Unexpected Token", &line, tok, ctx);

@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:54:56 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 15:37:28 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/28 18:25:31 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ static t_node	*simple_cmd(t_token **rest, t_token *tok, t_context *ctx)
 	append_cmd_element(node, &tok, tok, ctx);
 	while (tok && !at_eof(tok) && !is_control_operator(tok))
 		append_cmd_element(node, &tok, tok, ctx);
+	if (node->args_token == NULL && node->redirects_node != NULL \
+		&& node->redirects_node->kind == NODE_REDIR_HEREDOC)
+		node->args_token = new_token(xstrdup("cat"), TOKEN_WORD);
 	*rest = tok;
 	return (node);
 }
