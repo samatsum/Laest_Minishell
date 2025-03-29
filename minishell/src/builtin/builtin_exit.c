@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 23:02:03 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/27 14:18:25 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:11:36 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	builtin_exit(char **argv, t_context *ctx)
 	long	res;
 	char	*endptr;
 
+	write(1, "exit\n", 6);
 	if (argv[1] == NULL)
 		exit(ctx->last_status);
 	errno = 0;

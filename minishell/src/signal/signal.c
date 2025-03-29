@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 12:19:12 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 21:57:34 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:15:55 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	setup_signal(void)
 	extern int	_rl_echo_control_chars;
 
 	_rl_echo_control_chars = 1;
-	rl_outstream = stdout;
+	rl_outstream = stderr;
 	if (isatty(STDIN_FILENO))
 		rl_event_hook = check_state;
 	ignore_sig(SIGQUIT);
@@ -43,7 +43,9 @@ void	reset_signal(void)
 /* ************************************************************************** */
 static int	check_state(void)
 {
-	if (g_signal_received == SIGINT)
+	if (g_signal_received == 0)
+		return (0);
+	else if (g_signal_received == SIGINT)
 	{
 		rl_replace_line("", 0);
 		rl_done = 1;

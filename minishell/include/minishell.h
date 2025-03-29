@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 19:17:25 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 21:37:09 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/29 13:08:40 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,9 @@ void	prepare_pipe_parent(t_node *node);
 
 //exec_search_path.c
 char	*search_path(const char *filename_token, t_context *ctx);
+
+//exec_search_path.c
+void	wait_pipeline(pid_t last_pid, int *status);
 
 //exec.c
 int		exec(t_node *node, t_context *ctx);

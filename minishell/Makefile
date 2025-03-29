@@ -17,7 +17,7 @@ SRC =	main \
     	$(addprefix builtin/, builtin builtin_exit builtin_export builtin_unset builtin_env builtin_cd builtin_echo builtin_pwd builtin_filepath) \
     	$(addprefix environ/, environ_map_set environ_map_put environ environ_utils) \
 		$(addprefix error/, error error_exit error_syntax) \
-		$(addprefix exec/, exec exec_search_path exec_prepare_pipe exec_get_environ) \
+		$(addprefix exec/, exec exec_search_path exec_prepare_pipe exec_get_environ exec_wait_pipeline) \
 		$(addprefix expand/, expand expand_quote_removal expand_parameter expand_word_splitting expand_ifs expand_variable expand_special_parameter expand_utils) \
     	$(addprefix lib/, xdup2 xstrndup xcalloc xstrdup xpipe xclose xmalloc xgetenv) \
 		$(addprefix parse/, parse parse_redirection parse_utils) \

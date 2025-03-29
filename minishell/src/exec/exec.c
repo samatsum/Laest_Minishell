@@ -6,7 +6,7 @@
 /*   By: samatsum <samatsum@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 13:25:13 by samatsum          #+#    #+#             */
-/*   Updated: 2025/03/28 22:00:59 by samatsum         ###   ########.fr       */
+/*   Updated: 2025/03/29 12:52:52 by samatsum         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void		exec_nonbuiltin(t_node *node, t_context *ctx)
 				__attribute__((noreturn));
 static void		validate_access(const char *path, const char *filename_token, \
 	const char *tmp);
-static void		wait_pipeline(pid_t last_pid, int *status);
 
 /* ************************************************************************** */
 int	exec(t_node *node, t_context *ctx)
@@ -65,7 +64,6 @@ static pid_t	exec_pipeline(t_node *node, t_context *ctx)
 			exec_nonbuiltin(node, ctx);
 	}
 	prepare_pipe_parent(node);
-	reset_signal();
 	if (node->next)
 		return (exec_pipeline(node->next, ctx));
 	return (pid);
@@ -104,7 +102,7 @@ static void	validate_access(const char *path, const char *filename_token, \
 	if (path == NULL)
 	{
 		if (tmp != NULL)
-			err_exit(filename_token, "command not found", 127);
+			err_exit(filename_token, "01command not found", 127);
 		else
 			exit(0);
 	}	
@@ -120,34 +118,4 @@ static void	validate_access(const char *path, const char *filename_token, \
 		err_exit(filename_token, "Is a directory", 126);
 	if (access(path, X_OK) < 0)
 		err_exit(path, "Permission denied", 126);
-}
-
-/* ************************************************************************** */
-static void	wait_pipeline(pid_t last_pid, int *status)
-{
-	pid_t	wait_result;
-	int		wstatus;
-
-	while (1)
-	{
-		wait_result = wait(&wstatus);
-		if (wait_result == last_pid)
-		{
-			if (WIFSIGNALED(wstatus))
-				*status = 0x80 + WTERMSIG(wstatus);
-			else if (WIFEXITED(wstatus))
-				*status = WEXITSTATUS(wstatus);
-			else
-				*status = 42;
-		}
-		else if (wait_result < 0)
-		{
-			if (errno == ECHILD)
-				break ;
-			else if (errno == EINTR)
-				continue ;
-			else
-				fatal_error("wait");
-		}
-	}
 }
